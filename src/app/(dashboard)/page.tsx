@@ -15,6 +15,11 @@ import { useCryptoPrices } from "../react-query/useCryptoPrices";
 import Loading from "./components/LoadingIndictor";
 import SearchInput from "./components/SearchInput";
 
+export interface CryptoDetails {
+  usd: number;
+  usd_24h_change: number;
+}
+
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -47,7 +52,9 @@ export default function Home() {
             <div className="flex flex-col gap-y-4 md:flex-row items-center gap-x-2 w-full">
               <SearchInput
                 searchValue={searchQuery}
-                handleSearch={(e: any) => setSearchQuery(e.target.value)}
+                handleSearch={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSearchQuery(e.target.value)
+                }
               />
               <Button
                 onClick={handleRefresh}
@@ -71,21 +78,22 @@ export default function Home() {
               </TableHeader>
               <TableBody>
                 {filteredData.length > 0 ? (
-                  filteredData.map(([name, details]: any) => {
+                  filteredData.map(([name, details]) => {
+                    const typedDetails = details as CryptoDetails;
                     return (
-                      <TableRow>
+                      <TableRow key={name}>
                         <TableCell>{name}</TableCell>
                         <TableCell className="text-center">
-                          ${details.usd.toLocaleString()}
+                          ${typedDetails.usd.toLocaleString()}
                         </TableCell>
                         <TableCell
                           className={`${
-                            details.usd_24h_change > 0
+                            typedDetails.usd_24h_change > 0
                               ? "text-green-600"
                               : "text-red-600"
                           } text-center`}
                         >
-                          {details.usd_24h_change.toFixed(2)}%
+                          {typedDetails.usd_24h_change.toFixed(2)}%
                         </TableCell>
                       </TableRow>
                     );

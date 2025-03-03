@@ -5,7 +5,7 @@ import React from "react";
 
 interface SearchInputProps {
   searchValue: string;
-  handleSearch: any;
+  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function SearchInput({
