@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
-import { useCryptoPrices } from "../react-query/useCryptoPrices";
-import SearchInput from "./components/SearchInput";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,11 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Loading from "./components/LoadingIndictor";
-import { Button } from "@/components/ui/button";
 import { useCryptoStore } from "@/store/useCryptoStore";
 import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
+import { useCryptoPrices } from "../react-query/useCryptoPrices";
+import Loading from "./components/LoadingIndictor";
+import SearchInput from "./components/SearchInput";
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
